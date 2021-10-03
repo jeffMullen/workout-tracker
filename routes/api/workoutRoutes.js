@@ -9,4 +9,6 @@ const {
 // Get last workout
 router.route('/').get(getLastWorkout);
 
+router.route('/:id').put(addExercise);
+
 module.exports = router;

@@ -7,7 +7,13 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
     },
     addExercise(req, res) {
-
+        Workout.findOneAndUpdate(
+            { _id: req.params.id },
+            { $push: { exercises: req.body } },
+            { new: true }
+        )
+            .then((workout) => res.status(204).json(workout))
+            .catch((err) => res.status(500).json(err));
     },
     createWorkout(req, res) {
 
