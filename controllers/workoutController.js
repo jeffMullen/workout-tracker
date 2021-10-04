@@ -21,6 +21,27 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
     },
     getWorkoutsInRange(req, res) {
-
+        Workout.aggregate(
+            [
+                {
+                    $sort: { _id: -1 },
+                },
+                {
+                    $limit: 7,
+                },
+                {
+                    $addFields: {
+                        totalDuration: { $sum: '$exercises.duration' }
+                    }
+                }
+            ],
+            (err, result) => {
+                if (err) {
+                    res.status(500).send(err);
+                } else {
+                    res.status(200).send(result);
+                }
+            }
+        )
     },
 };
