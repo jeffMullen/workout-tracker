@@ -16,7 +16,9 @@ module.exports = {
             .catch((err) => res.status(500).json(err));
     },
     createWorkout(req, res) {
-
+        Workout.create(req.body)
+            .then((newWorkout) => res.status(201).json(newWorkout))
+            .catch((err) => res.status(500).json(err));
     },
     getWorkoutsInRange(req, res) {
 
