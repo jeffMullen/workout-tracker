@@ -26,8 +26,22 @@ const workoutSchema = new Schema(
                 sets: Number
             }
         ]
+    },
+    {
+        toJSON: {
+            virtuals: true
+        },
+        id: false
     }
 );
+
+workoutSchema.virtual('totalDuration').get(function () {
+    let totalDuration = 0;
+    for (let i = 0; i < this.exercises.length; i++) {
+        totalDuration += this.exercises[i].duration;
+    }
+    return totalDuration;
+})
 
 const Workout = model('workout', workoutSchema);
 
